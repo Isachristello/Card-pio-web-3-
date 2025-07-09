@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzaria Fatia Nobre</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+   <header class="top-bar">
+      <h2>Pizzaria Fatia Nobre</h2>
+      <nav>
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre nós</a>
+        <a href="cardapio.html">Cardápio</a>
+        <a href="contato.html">Contato</a>
+        <a href="entrar.html">Entrar</a>
+      </nav>
+  </header>
+
+
+    <section class="filtros">
+        <input type="text" placeholder="Buscar produto...">
+        <select>
+            <option value="">Todos</option>
+            <option value="pizza">Pizza</option>
+            <option value="bebida">Bebida</option>
+            <option value="combos">Combos</option>
+
+        </select>
+    </section>
+
+    <!-- Pizzas -->
+    <section class="secao">
+        <h2>Pizzas</h2>
+        <div class="container-cards">
+
+            <div class="card">
+              <img src="img/pizza.jpg" alt="Pizza GG">
+              <h3>Pizza GG 50cm</h3>
+              <p>R$ 115,00</p>
+              <a href="sabores.html" class="botao-cardapio">Escolher Sabores</a>
+            </div>
+
+
+            <div class="card">
+                <img src="img/pizza.jpg" alt="Pizza Super">
+                <h3>Pizza Super 45cm</h3>
+                <p>R$ 85,00</p>
+                <a href="sabores.html" class="botao-cardapio">Escolher Sabores</a>
+            </div>
+
+            <div class="card">
+                <img src="img/pizza.jpg" alt="Pizza Média">
+                <h3>Pizza Média 35cm</h3>
+                <p>R$ 68,00</p>
+                <a href="sabores.html" class="botao-cardapio">Escolher Sabores</a>
+            </div>
+
+            <div class="card">
+                <img src="img/pizza.jpg" alt="Pizza Broto">
+                <h3>Pizza Broto 25cm</h3>
+                <p>R$ 45,90</p>
+                <a href="sabores.html" class="botao-cardapio">Escolher Sabores</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="secao">
+        <h2>COMBOS</h2>
+        <div class="container-cards">
+
+            <div class="card">
+                <img src="img/pizza.jpg" alt="Combo 1">
+                <h3>Pizza GG 50cm + Refrigerante 2L</h3>
+                <p>R$ 120,00</p>
+                <a href="sabores.html" class="botao-cardapio">Escolher Sabores</a>
+            </div>
+
+            <div class="card">
+                <img src="img/pizza.jpg" alt="Combo 2">
+                <h3>Pizza Super 45cm + Pizza Média 35cm</h3>
+                <p>R$ 110,00</p>
+                <a href="sabores.html" class="botao-cardapio">Escolher Sabores</a>
+            </div>
+
+            <div class="card">
+                <img src="img/pizza.jpg" alt="Pizza Média">
+                <h3>Pizza Média 35cm + Pizza Broto 25cm </h3>
+                <p>R$ 95,00</p>
+                <a href="sabores.html" class="botao-cardapio">Escolher Sabores</a>
+            </div>
+
+            <div class="card">
+                <img src="img/pizza.jpg" alt="Pizza Broto">
+                <h3>Pizza GG 50cm + Pizza 25cm</h3>
+                <p>R$ 145,00</p>
+                <a href="sabores.html" class="botao-cardapio">Escolher Sabores</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEBIDAS -->
+    <section class="secao">
+        <h2>BEBIDAS</h2>
+        <div class="container-cards">
+
+            <div class="card">
+                <img src="img/refri.jpg" alt="Coca-Cola">
+                <h3>Coca-Cola Lata</h3>
+                <p>R$ 5,00</p>
+                <a href="carrinho.html" class="botao-carrinho">Adicionar ao carrinho</a>
+            </div>
+
+            <!-- +3 cards de bebida -->
+            <div class="card">
+                <img src="img/refri.jpg" alt="Guaraná ">
+                <h3>Guaraná </h3>
+                <p>R$ 8,00</p>
+                <a href="carrinho.html" class="botao-carrinho">Adicionar ao carrinho</a>
+            </div>
+
+            <div class="card">
+                <img src="img/suco.jpg" alt="Suco de Laranja">
+                <h3>Suco de Laranja</h3>
+                <p>R$ 6,50</p>
+                <a href="carrinho.html" class="botao-carrinho">Adicionar ao carrinho</a>
+            </div>
+
+            <div class="card">
+                <img src="img/agua.jpg" alt="Água Mineral">
+                <h3>Água Mineral</h3>
+                <p>R$ 3,00</p>
+                <a href="carrinho.html" class="botao-carrinho">Adicionar ao carrinho</a>
+            </div>
+        </div>
+    </section>
+
+ <script>
+  function escolherSabores(nome,tamanho,preco) {
+    localStorage.setItem('nomePizza');
+    localStorage.setItem('precoPizza');
+    localStorage.setItem('tamanhoPizza', tamanho);
+    window.location.href = 'sabores.html';
+  }
+
+  function adicionarProduto(nome, preco) {
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    let existente = carrinho.find(item => item.nome === nome);
+    if (existente) {
+        existente.qtd += 1;
+    } else {
+        carrinho.push({ nome, preco, qtd: 1 });
+    }
+
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    window.location.href = 'cardapio.html';
+  }
+
+</script>
+
+
+</body>
+</html>

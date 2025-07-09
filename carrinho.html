@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrinho - Fatia Nobre</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Carrinho de Compras</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="cardapio.html">Cardápio</a>
+      <a href="carrinho.html">Carrinho</a>
+      <a href="area admin">Area Admin</a>
+    </nav>
+  </header>
+  <main class="carrinho-container">
+
+    <!-- Itens -->
+    <section class="itens-carrinho">
+      <div class="itens" id="itens-carrinho"></div>
+      <div class="total">
+        <strong>Total: R$ 0,00</strong>
+      </div>
+    </section>
+
+    <!-- Formulário -->
+    <section class="finalizar">
+      <h2>Finalizar Pedido</h2>
+      <form>
+        <input type="text" placeholder="Nome completo" required />
+        <input type="text" placeholder="Endereço" required />
+        <select required>
+          <option value="">Forma de pagamento</option>
+          <option>Cartão de Crédito</option>
+          <option>Pix</option>
+          <option>Dinheiro</option>
+        </select>
+        <input type="text" placeholder="Cupom de desconto" />
+        <button type="submit">Finalizar Compra</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- SCRIPT -->
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const container = document.getElementById('itens-carrinho');
+  const totalCarrinho = document.getElementById('totalCarrinho');
+
+  function atualizarCarrinho() {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    container.innerHTML = '<h2>Seu Carrinho</h2>';
+    let total = 0;
+
+    carrinho.forEach((item, index) => {
+      const sabores = item.sabores ? item.sabores.join(" / ") : '';
+      const subtotal = item.preco * item.qtd;
+      total += subtotal;
+
+      const itemHTML = `
+        <div class="item">
+          <div class="info">
+            <h3>${item.nome} (${item.tamanho})</h3>
+            <p>Sabores: ${sabores}</p>
+            <p>Preço: R$ ${item.preco.toFixed(2)}</p>
+            <div class="quantidade">
+              <button onclick="alterarQtd(${index}, -1)">-</button>
+              <span>${item.qtd}</span>
+              <button onclick="alterarQtd(${index}, 1)">+</button>
+              <button class="lixeira" onclick="removerItem(${index})">🗑️</button>
+            </div>
+            <p class="subtotal">Subtotal: R$ ${subtotal.toFixed(2)}</p>
+          </div>
+        </div>
+      `;
+      container.innerHTML += itemHTML;
+    });
+    totalCarrinho.textContent = `Total: R$ ${total.toFixed(2)};`}
+
+  window.alterarQtd = function(index, delta) {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    carrinho[index].qtd += delta;
+    if (carrinho[index].qtd < 1) carrinho[index].qtd = 1;
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    atualizarCarrinho();
+  }
+
+  window.removerItem = function(index) {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    carrinho.splice(index, 1);
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    atualizarCarrinho();
+  }
+
+  atualizarCarrinho();
+});
+</script>
+
+</body>
+</html>

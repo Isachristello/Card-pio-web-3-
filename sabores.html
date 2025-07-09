@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Escolher Sabores</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+ <header class="top-bar">
+      <span class="logo-small">Entrar</span>
+      <h2>Pizzaria Fatia Nobre</h2>
+      <nav>
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre nós</a>
+        <a href="cardapio.html">Cardápio</a>
+        <a href="contato.html">Contato</a>
+      </nav>
+  </header>
+
+
+  <h2 style="text-align: center; margin-top: 40px; color: #970809;">Sabores Salgados</h2>
+
+  <div class="lista-sabores">
+
+    <div class="sabor-item">
+      <div class="sabor-info">
+        <h3>Bacon</h3>
+        <p>Molho, Mussarela, Orégano, Bacon, Cebola, Tomate e Manjericão.</p>
+      </div>
+      <div class="sabor-acao">
+        <input type="checkbox" name="sabor" value="Bacon">
+      </div>
+    </div>
+
+    <div class="sabor-item">
+      <div class="sabor-info">
+        <h3>Calabresa</h3>
+        <p>Molho, Mussarela, Calabresa, Cebola, Tomate e Orégano.</p>
+      </div>
+      <div class="sabor-acao">
+        <input type="checkbox" name="sabor" value="Calabresa">
+      </div>
+    </div>
+
+    <div class="sabor-item">
+      <div class="sabor-info">
+        <h3>Frango com Catupiry</h3>
+        <p>Molho, Frango, Catupiry, Milho e Orégano.</p>
+      </div>
+      <div class="sabor-acao">
+        <input type="checkbox" name="sabor" value="Frango com Catupiry">
+      </div>
+    </div>
+    
+    <div class="sabor-item">
+      <div class="sabor-info">
+        <h3>Margherita</h3>
+        <p>Molho, Mussarela, Orégano, Tomate, Molho, Parmesão e Manjericão.</p>
+      </div>
+      <div class="sabor-acao">
+        <input type="checkbox" name="sabor" value="Margherita">
+      </div>
+    </div>
+    
+     <div class="sabor-item">
+      <div class="sabor-info">
+        <h3>Mussarela</h3>
+        <p>Molho, Mussarela, Orégano.</p>
+      </div>
+      <div class="sabor-acao">
+        <input type="checkbox" name="sabor" value="Margherita">
+      </div>
+    </div>
+
+    <div class="sabor-item">
+     <div class="sabor-info">
+        <h3>Portuguesa</h3>
+        <p>Molho, Mussarela, Presunto, Ovo, Cebola, Ervilha e Azeitona.</p>
+    </div>
+    <div class="sabor-acao">
+         <input type="checkbox" name="sabor" value="Portuguesa">
+    </div>
+</div>
+  <div class="sabor-item">
+      <div class="sabor-info">
+        <h3>Quatro Queijos</h3>
+        <p>Molho, Mussarela, Catupiry, Gorgonzola e Parmesão.</p>
+    </div>
+    <div class="sabor-acao">
+        <input type="checkbox" name="sabor" value="Quatro Queijos">
+    </div>
+</div>
+
+</div>
+
+  <h2 style="text-align: center; margin-top: 40px; color: #970809;">Sabores Doces</h2>
+
+<div class="lista-sabores">
+
+  <div class="sabor-item">
+    <div class="sabor-info">
+      <h3>Chocolate com Morango</h3>
+      <p>Chocolate preto, leite condensado e morangos.</p>
+    </div>
+    <div class="sabor-acao">
+      <input type="checkbox" name="sabor" value="Chocolate com Morango">
+    </div>
+  </div>
+
+  <div class="sabor-item">
+    <div class="sabor-info">
+      <h3>Romeu e Julieta</h3>
+      <p>Goiabada cremosa com queijo mussarela derretido.</p>
+    </div>
+    <div class="sabor-acao">
+      <input type="checkbox" name="sabor" value="Romeu e Julieta">
+    </div>
+  </div>
+
+  <div class="sabor-item">
+    <div class="sabor-info">
+      <h3>Banana com Canela</h3>
+      <p>Mussarela, banana, açúcar e canela.</p>
+    </div>
+    <div class="sabor-acao">
+      <input type="checkbox" name="sabor" value="Banana com Canela">
+    </div>
+  </div>
+
+  <div class="sabor-item">
+    <div class="sabor-info">
+      <h3>Prestígio</h3>
+      <p>Chocolate preto, coco ralado e leite condensado.</p>
+    </div>
+    <div class="sabor-acao">
+      <input type="checkbox" name="sabor" value="Prestígio">
+    </div>
+  </div>
+
+</div>
+
+  <button id="confirmarSabores" class="botao-finalizar">Confirmar Sabores</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const tamanho = localStorage.getItem('tamanhoPizza');
+    const nome = localStorage.getItem('nomePizza');
+    const preco = parseFloat(localStorage.getItem('precoPizza'));
+    const inputs = document.querySelectorAll('input[name="sabor"]');
+
+    let limite = 2;
+
+    if (tamanho === 'Broto') limite = 1;
+    else if (tamanho === 'Média') limite = 3;
+    else if (tamanho === 'Super') limite = 4;
+    else if (tamanho === 'GG') limite = 5;
+
+    // Controle de limite de sabores
+    inputs.forEach(input => {
+      input.addEventListener('change', () => {
+        const selecionados = document.querySelectorAll('input[name="sabor"]:checked').length;
+
+        inputs.forEach(i => {
+          i.disabled = selecionados >= limite && !i.checked;
+        });
+      });
+    });
+
+    // Confirmar sabores
+    document.getElementById('confirmarSabores').addEventListener('click', () => {
+      const sabores = Array.from(document.querySelectorAll('input[name="sabor"]:checked'))
+        .map(el => el.value);
+
+      if (sabores.length === 0) {
+        alert("Escolha pelo menos 1 sabor.");
+        return;
+      }
+
+      // Monta o produto completo
+      const produto = {
+        nome: nome,
+        tamanho: tamanho,
+        preco: preco,
+        sabores: sabores,
+        qtd: 1
+      };
+
+      // Adiciona ao carrinho
+      let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      carrinho.push(produto);
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
+      window.location.href = 'carrinho.html';
+    });
+  });
+</script>
+
+
+</body>
+</html>
